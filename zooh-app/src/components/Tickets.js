@@ -18,9 +18,11 @@ import {
   List,
   ListItem,
   ListItemText,
+  IconButton as MuiIconButton,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 
 const TicketsPage = () => {
@@ -49,6 +51,11 @@ const TicketsPage = () => {
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
+  };
+
+  const handleRemoveFromCart = (index) => {
+    const updatedCart = cart.filter((_, i) => i !== index);
+    setCart(updatedCart);
   };
 
   const ticketOptions = [
@@ -140,7 +147,11 @@ const TicketsPage = () => {
           </Typography>
           <List>
             {cart.map((item, index) => (
-              <ListItem key={index}>
+              <ListItem key={index} secondaryAction={
+                <MuiIconButton edge="end" aria-label="delete" onClick={() => handleRemoveFromCart(index)}>
+                  <DeleteIcon />
+                </MuiIconButton>
+              }>
                 <ListItemText primary={item.type} secondary={item.price} />
               </ListItem>
             ))}
