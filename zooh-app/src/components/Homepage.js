@@ -31,7 +31,6 @@ const Homepage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate a loading state for demonstration
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -68,7 +67,6 @@ const Homepage = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      {/* AppBar with Home Button and Hamburger Menu */}
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar>
           <IconButton
@@ -123,7 +121,6 @@ const Homepage = () => {
         </MenuItem>
       </Menu>
 
-      {/* Hero Section */}
       <Box
         sx={{
           height: "70vh",
@@ -158,7 +155,6 @@ const Homepage = () => {
         </Typography>
       </Box>
 
-      {/* Button Navigation Section */}
       <Stack spacing={4} direction={{ xs: "column", sm: "row" }} justifyContent="center" sx={{ mt: 4 }}>
         <Button
           variant="contained"
@@ -213,7 +209,6 @@ const Homepage = () => {
         </Button>
       </Stack>
 
-      {/* Information Cards Section */}
       <Stack spacing={4} direction={{ xs: "column", sm: "row" }} justifyContent="center" sx={{ mt: 4, px: 4 }}>
         <Card sx={{ boxShadow: 3, backgroundColor: "#80deea", maxWidth: 300 }}>
           <Box
@@ -271,7 +266,6 @@ const Homepage = () => {
         </Card>
       </Stack>
 
-      {/* Footer Section */}
       <Box
         sx={{
           mt: 4,

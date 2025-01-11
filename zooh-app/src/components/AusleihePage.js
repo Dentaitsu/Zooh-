@@ -25,13 +25,11 @@ const AusleihePage = () => {
   const [loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // Simulate loading
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle Hamburger Menu
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -58,7 +56,7 @@ const AusleihePage = () => {
 
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#e0f7fa", fontFamily: "Arial, sans-serif" }}>
-      {/* AppBar with Home Button and Hamburger Menu */}
+  
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={() => navigate("/")}>
@@ -109,7 +107,6 @@ const AusleihePage = () => {
         </MenuItem>
       </Menu>
 
-      {/* Main Content */}
       <Box
         sx={{
           maxWidth: "800px",
@@ -200,7 +197,6 @@ const AusleihePage = () => {
         </Typography>
       </Box>
 
-      {/* Footer Section */}
       <Box
         sx={{
           mt: 4,

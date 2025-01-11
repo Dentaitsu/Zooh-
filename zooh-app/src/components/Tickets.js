@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -25,12 +25,48 @@ import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 
+const ticketData = [
+  {
+    id: 1,
+    type: "Einzelticket",
+    description: "Zugang für eine Person.",
+    price: "20€",
+  },
+  {
+    id: 2,
+    type: "Familienticket",
+    description: "Gültig für zwei Erwachsene und bis zu drei Kinder.",
+    price: "50€",
+  },
+  {
+    id: 3,
+    type: "Kinder unter 15 Jahren",
+    description: "Ermäßigter Eintritt für Kinder zwischen 13 und 15 Jahren.",
+    price: "10€",
+  },
+  {
+    id: 4,
+    type: "Kinder unter 12 Jahren",
+    description: "Kostenloser Eintritt für Kinder unter 12 Jahren.",
+    price: "Kostenlos",
+  },
+];
+
 const TicketsPage = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [cart, setCart] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(savedCart);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,41 +85,26 @@ const TicketsPage = () => {
     setSnackbarOpen(false);
   };
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-  };
-
   const handleRemoveFromCart = (index) => {
     const updatedCart = cart.filter((_, i) => i !== index);
     setCart(updatedCart);
   };
 
-  const ticketOptions = [
-    {
-      type: "Einzelticket",
-      description: "Zugang für eine Person.",
-      price: "20€",
-    },
-    {
-      type: "Familienticket",
-      description: "Gültig für zwei Erwachsene und bis zu drei Kinder.",
-      price: "50€",
-    },
-    {
-      type: "Kinder unter 15 Jahren",
-      description: "Ermäßigter Eintritt für Kinder zwischen 13 und 15 Jahren.",
-      price: "10€",
-    },
-    {
-      type: "Kinder unter 12 Jahren",
-      description: "Kostenloser Eintritt für Kinder unter 12 Jahren.",
-      price: "Kostenlos",
-    },
-  ];
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#e0f7fa", fontFamily: "Arial, sans-serif", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-      {/* AppBar with Home Button and Hamburger Menu */}
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundColor: "#e0f7fa",
+        fontFamily: "Arial, sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={() => navigate("/")}>
@@ -105,14 +126,13 @@ const TicketsPage = () => {
         <MenuItem onClick={() => navigate("/tickets")}>Tickets</MenuItem>
       </Menu>
 
-      {/* Ticket Options */}
       <Box sx={{ padding: "20px" }}>
         <Typography variant="h4" sx={{ textAlign: "center", color: "#004d40", mb: 4 }}>
           Tickets
         </Typography>
         <Grid container spacing={4} justifyContent="center">
-          {ticketOptions.map((ticket, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+          {ticketData.map((ticket) => (
+            <Grid item xs={12} sm={6} md={4} key={ticket.id}>
               <Card sx={{ boxShadow: 3, borderRadius: "10px", backgroundColor: "#ffffff" }}>
                 <CardContent>
                   <Typography variant="h5" sx={{ color: "#004d40", mb: 2 }}>
@@ -139,7 +159,6 @@ const TicketsPage = () => {
         </Grid>
       </Box>
 
-      {/* Drawer (Cart) */}
       <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerToggle}>
         <Box sx={{ width: 300, padding: "20px" }}>
           <Typography variant="h5" sx={{ mb: 2 }}>
@@ -147,27 +166,24 @@ const TicketsPage = () => {
           </Typography>
           <List>
             {cart.map((item, index) => (
-              <ListItem key={index} secondaryAction={
-                <MuiIconButton edge="end" aria-label="delete" onClick={() => handleRemoveFromCart(index)}>
-                  <DeleteIcon />
-                </MuiIconButton>
-              }>
+              <ListItem
+                key={index}
+                secondaryAction={
+                  <MuiIconButton edge="end" aria-label="delete" onClick={() => handleRemoveFromCart(index)}>
+                    <DeleteIcon />
+                  </MuiIconButton>
+                }
+              >
                 <ListItemText primary={item.type} secondary={item.price} />
               </ListItem>
             ))}
           </List>
-          <Button
-            variant="contained"
-            sx={{ mt: 2, backgroundColor: "#004d40" }}
-            fullWidth
-            onClick={handleDrawerToggle}
-          >
+          <Button variant="contained" sx={{ mt: 2, backgroundColor: "#004d40" }} fullWidth>
             Kaufen
           </Button>
         </Box>
       </Drawer>
 
-      {/* Snackbar Notification */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
@@ -179,7 +195,6 @@ const TicketsPage = () => {
         </Alert>
       </Snackbar>
 
-      {/* Footer Section */}
       <Box sx={{ py: 3, backgroundColor: "#004d40", color: "#e0f7fa", textAlign: "center" }}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={4}>

@@ -27,7 +27,6 @@ const MapPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading state
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -82,7 +81,6 @@ const MapPage = () => {
         flexDirection: "column",
       }}
     >
-      {/* AppBar with Home Button and Hamburger Menu */}
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={() => navigate("/")}> 
@@ -105,7 +103,6 @@ const MapPage = () => {
         <MenuItem onClick={() => { navigate("/tickets"); handleMenuClose(); }}>Tickets</MenuItem>
       </Menu>
 
-      {/* Map Image Section */}
       <Box
         sx={{
           position: "relative",
@@ -129,7 +126,6 @@ const MapPage = () => {
         >
           <img src={mapImage} alt="Zoo Map" style={{ width: "100%", height: "auto" }} />
 
-          {/* Example Marker on the Map */}
           <Tooltip title="Tiergehege" placement="top">
             <IconButton
               sx={{
@@ -143,7 +139,6 @@ const MapPage = () => {
             </IconButton>
           </Tooltip>
 
-          {/* VR Attraction Marker */}
           <Tooltip title="VR-Attraktion" placement="top">
             <IconButton
               sx={{
@@ -159,7 +154,6 @@ const MapPage = () => {
         </Box>
       </Box>
 
-      {/* Weather Icon Overlay */}
       {weather && (
         <Tooltip title={`Aktuelles Wetter: ${weather.temperature}°C, ${weather.weathercode === 0 ? "Klar" : "Bewölkt"}`} placement="top">
           <IconButton
@@ -181,7 +175,6 @@ const MapPage = () => {
         </Tooltip>
       )}
 
-      {/* Footer Section */}
       <Box
         sx={{
           mt: 4,
