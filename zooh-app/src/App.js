@@ -3,6 +3,7 @@ import Homepage from "./components/Homepage";
 import MapPage from "./components/MapPage";
 import AusleihePage from "./components/AusleihePage";
 import Weather from "./components/Weather";
+import TicketsPage from "./components/Tickets";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/borrow" element={<AusleihePage />} />
         <Route path="/weather" element={<Weather/>} />
+        <Route path="/tickets" element={<TicketsPage />} />
       </Routes>
     </Router>
   );
