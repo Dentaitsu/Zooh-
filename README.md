@@ -52,7 +52,7 @@ Installation
 
 Repository klonen
 
-git clone https://github.com/dein-benutzername/zooh-app.git
+git clone https://github.com/your username duh/zooh-app.git
 
 Abhängigkeiten installieren
 
