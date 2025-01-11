@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -8,43 +8,108 @@ import {
   ListItemText,
   Divider,
   Stack,
+  CircularProgress,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 
 const AusleihePage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Handle Hamburger Menu
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#e0f7fa",
+        }}
+      >
+        <CircularProgress size={60} sx={{ color: "#004d40" }} />
+      </Box>
+    );
+  }
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        backgroundColor: "#e0f7fa",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#e0f7fa", fontFamily: "Arial, sans-serif" }}>
       {/* AppBar with Home Button and Hamburger Menu */}
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => navigate("/")}
-          >
+          <IconButton edge="start" color="inherit" onClick={() => navigate("/")}>
             <HomeIcon fontSize="large" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }}></Box>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleMenuOpen}>
             <MenuIcon fontSize="large" />
           </IconButton>
         </Toolbar>
       </AppBar>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem
+          onClick={() => {
+            navigate("/map");
+            handleMenuClose();
+          }}
+        >
+          Karte
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/borrow");
+            handleMenuClose();
+          }}
+        >
+          Ausleihe
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/weather");
+            handleMenuClose();
+          }}
+        >
+          Wetter
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/tickets");
+            handleMenuClose();
+          }}
+        >
+          Tickets
+        </MenuItem>
+      </Menu>
 
+      {/* Main Content */}
       <Box
         sx={{
           maxWidth: "800px",
@@ -56,10 +121,7 @@ const AusleihePage = () => {
           mt: 4,
         }}
       >
-        <Typography
-          variant="h4"
-          sx={{ textAlign: "center", color: "#004d40", mb: 2 }}
-        >
+        <Typography variant="h4" sx={{ textAlign: "center", color: "#004d40", mb: 2 }}>
           Ausleihe
         </Typography>
         <Divider sx={{ mb: 3 }} />
@@ -120,27 +182,21 @@ const AusleihePage = () => {
           Bei Verlust eines ausgeliehenen Gegenstands:
         </Typography>
         <Typography variant="body1" sx={{ mb: 2 }}>
-          Sollte ein geliehener Gegenstand verloren gehen, wird die hinterlegte
-          Gebühr nicht zurückerstattet, und je nach Gegenstand kann eine
-          zusätzliche Ersatzgebühr erhoben werden.
+          Sollte ein geliehener Gegenstand verloren gehen, wird die hinterlegte Gebühr nicht zurückerstattet, und je nach Gegenstand kann eine zusätzliche Ersatzgebühr erhoben werden.
         </Typography>
 
         <Typography variant="h6" sx={{ color: "#004d40", mb: 2 }}>
           Meldung bei Verlust:
         </Typography>
         <Typography variant="body1" sx={{ mb: 2 }}>
-          Falls Sie etwas verloren haben, melden Sie sich bitte so bald wie
-          möglich beim Besucherzentrum oder der Hauptinformation. Unser Team
-          wird Ihnen weiterhelfen und den Verlust protokollieren.
+          Falls Sie etwas verloren haben, melden Sie sich bitte so bald wie möglich beim Besucherzentrum oder der Hauptinformation. Unser Team wird Ihnen weiterhelfen und den Verlust protokollieren.
         </Typography>
 
         <Typography variant="h6" sx={{ color: "#004d40", mb: 2 }}>
           Zusätzliche Kosten:
         </Typography>
         <Typography variant="body1">
-          Für bestimmte Artikel, wie z. B. Regenjacken oder Tagesrucksäcke, kann
-          eine Ersatzgebühr in Höhe von bis zu 20€ anfallen, abhängig vom Wert
-          des verlorenen Gegenstands.
+          Für bestimmte Artikel, wie z. B. Regenjacken oder Tagesrucksäcke, kann eine Ersatzgebühr in Höhe von bis zu 20€ anfallen, abhängig vom Wert des verlorenen Gegenstands.
         </Typography>
       </Box>
 
@@ -154,11 +210,7 @@ const AusleihePage = () => {
           textAlign: "center",
         }}
       >
-        <Stack
-          spacing={2}
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="center"
-        >
+        <Stack spacing={2} direction={{ xs: "column", sm: "row" }} justifyContent="center">
           <Box>
             <Typography variant="h6">Kontakt</Typography>
             <Typography variant="body1">Zoostrasse 43, Zürich</Typography>
@@ -167,16 +219,12 @@ const AusleihePage = () => {
           </Box>
           <Box>
             <Typography variant="h6">Öffnungszeiten</Typography>
-            <Typography variant="body1">
-              Montag - Sonntag: 09:00 - 18:00
-            </Typography>
+            <Typography variant="body1">Montag - Sonntag: 09:00 - 18:00</Typography>
             <Typography variant="body1">Feiertage: Geschlossen</Typography>
           </Box>
         </Stack>
         <Divider sx={{ my: 2, backgroundColor: "#e0f7fa" }} />
-        <Typography variant="body2">
-          © 2025 Zoo Zürich. Alle Rechte vorbehalten.
-        </Typography>
+        <Typography variant="body2">© 2025 Zoo Zürich. Alle Rechte vorbehalten.</Typography>
       </Box>
     </Box>
   );
