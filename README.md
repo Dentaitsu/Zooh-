@@ -1,2 +1,0 @@
-# Zooh-
-Project for School
