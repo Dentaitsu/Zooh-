@@ -8,7 +8,8 @@ import {
   Toolbar,
   Menu,
   MenuItem,
-  Grid,
+  Stack,
+  CircularProgress,
   Divider,
 } from "@mui/material";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -23,14 +24,13 @@ const MapPage = () => {
   const navigate = useNavigate();
   const [weather, setWeather] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  useEffect(() => {
+    // Simulate loading state
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -48,6 +48,30 @@ const MapPage = () => {
     fetchWeather();
   }, []);
 
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#e0f7fa",
+        }}
+      >
+        <CircularProgress size={60} sx={{ color: "#004d40" }} />
+      </Box>
+    );
+  }
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box
       sx={{
@@ -61,11 +85,7 @@ const MapPage = () => {
       {/* AppBar with Home Button and Hamburger Menu */}
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => navigate("/")}
-          >
+          <IconButton edge="start" color="inherit" onClick={() => navigate("/")}> 
             <HomeIcon fontSize="large" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }}></Box>
@@ -79,38 +99,10 @@ const MapPage = () => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem
-          onClick={() => {
-            navigate("/map");
-            handleMenuClose();
-          }}
-        >
-          Karte
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            navigate("/borrow");
-            handleMenuClose();
-          }}
-        >
-          Ausleihe
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            navigate("/weather");
-            handleMenuClose();
-          }}
-        >
-          Wetter
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            navigate("/tickets");
-            handleMenuClose();
-          }}
-        >
-          Tickets
-        </MenuItem>
+        <MenuItem onClick={() => { navigate("/map"); handleMenuClose(); }}>Karte</MenuItem>
+        <MenuItem onClick={() => { navigate("/borrow"); handleMenuClose(); }}>Ausleihe</MenuItem>
+        <MenuItem onClick={() => { navigate("/weather"); handleMenuClose(); }}>Wetter</MenuItem>
+        <MenuItem onClick={() => { navigate("/tickets"); handleMenuClose(); }}>Tickets</MenuItem>
       </Menu>
 
       {/* Map Image Section */}
@@ -135,11 +127,7 @@ const MapPage = () => {
             position: "relative",
           }}
         >
-          <img
-            src={mapImage}
-            alt="Zoo Map"
-            style={{ width: "100%", height: "auto" }}
-          />
+          <img src={mapImage} alt="Zoo Map" style={{ width: "100%", height: "auto" }} />
 
           {/* Example Marker on the Map */}
           <Tooltip title="Tiergehege" placement="top">
@@ -173,12 +161,7 @@ const MapPage = () => {
 
       {/* Weather Icon Overlay */}
       {weather && (
-        <Tooltip
-          title={`Aktuelles Wetter: ${weather.temperature}°C, ${
-            weather.weathercode === 0 ? "Klar" : "Bewölkt"
-          }`}
-          placement="top"
-        >
+        <Tooltip title={`Aktuelles Wetter: ${weather.temperature}°C, ${weather.weathercode === 0 ? "Klar" : "Bewölkt"}`} placement="top">
           <IconButton
             sx={{
               position: "absolute",
@@ -208,25 +191,21 @@ const MapPage = () => {
           textAlign: "center",
         }}
       >
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={4}>
+        <Stack spacing={2} direction={{ xs: "column", sm: "row" }} justifyContent="center">
+          <Box>
             <Typography variant="h6">Kontakt</Typography>
             <Typography variant="body1">Zoostrasse 43, Zürich</Typography>
             <Typography variant="body1">Telefonnummer: 098198264</Typography>
             <Typography variant="body1">(Google Maps Link)</Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          </Box>
+          <Box>
             <Typography variant="h6">Öffnungszeiten</Typography>
-            <Typography variant="body1">
-              Montag - Sonntag: 09:00 - 18:00
-            </Typography>
+            <Typography variant="body1">Montag - Sonntag: 09:00 - 18:00</Typography>
             <Typography variant="body1">Feiertage: Geschlossen</Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Stack>
         <Divider sx={{ my: 2, backgroundColor: "#e0f7fa" }} />
-        <Typography variant="body2">
-          © 2025 Zoo Zürich. Alle Rechte vorbehalten.
-        </Typography>
+        <Typography variant="body2">© 2025 Zoo Zürich. Alle Rechte vorbehalten.</Typography>
       </Box>
     </Box>
   );
