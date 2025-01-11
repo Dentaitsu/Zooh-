@@ -1,6 +1,6 @@
-Zooh App Projekt - README
+Zooh App Projekt 
 
-Projektbeschreibung
+Das Projekt
 
 Die Zooh App ist eine Frontend-Webanwendung für den Besuch eines Zoos. Sie enthält mehrere Seiten, die verschiedene Funktionen wie Kartenanzeige, Wetterinformationen, Ticketbuchung und Ausleihe bieten. Das Projekt wurde mit React und Material UI erstellt.
 
