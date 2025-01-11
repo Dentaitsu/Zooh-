@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
   Typography,
-  Grid,
   Card,
   CardContent,
   IconButton,
@@ -11,6 +10,9 @@ import {
   MenuItem,
   AppBar,
   Toolbar,
+  Stack,
+  CircularProgress,
+  Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -22,9 +24,33 @@ import MapIcon from "@mui/icons-material/Map";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
+
 const Homepage = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a loading state for demonstration
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#e0f7fa",
+        }}
+      >
+        <CircularProgress size={60} sx={{ color: "#004d40" }} />
+      </Box>
+    );
+  }
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -133,134 +159,117 @@ const Homepage = () => {
       </Box>
 
       {/* Button Navigation Section */}
-      <Grid container spacing={4} sx={{ mt: 4, px: 4 }}>
-        <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            onClick={() => navigate("/map")}
-            sx={{
-              padding: "20px",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              fontSize: "1.1rem",
-              backgroundColor: "#00acc1",
-              color: "#fff",
-              ":hover": { backgroundColor: "#00838f" },
-            }}
-          >
-            <MapIcon sx={{ fontSize: 50, mb: 1 }} />
-            Karte
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            onClick={() => navigate("/borrow")}
-            sx={{
-              padding: "20px",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              fontSize: "1.1rem",
-              backgroundColor: "#00acc1",
-              color: "#fff",
-              ":hover": { backgroundColor: "#00838f" },
-            }}
-          >
-            <SwapHorizIcon sx={{ fontSize: 50, mb: 1 }} />
-            Ausleihe
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            onClick={() => navigate("/weather")}
-            sx={{
-              padding: "20px",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              fontSize: "1.1rem",
-              backgroundColor: "#00acc1",
-              color: "#fff",
-              ":hover": { backgroundColor: "#00838f" },
-            }}
-          >
-            <WbSunnyIcon sx={{ fontSize: 50, mb: 1 }} />
-            Wetter
-          </Button>
-        </Grid>
-      </Grid>
+      <Stack spacing={4} direction={{ xs: "column", sm: "row" }} justifyContent="center" sx={{ mt: 4 }}>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/map")}
+          sx={{
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            fontSize: "1.1rem",
+            backgroundColor: "#00acc1",
+            color: "#fff",
+            ":hover": { backgroundColor: "#00838f" },
+          }}
+        >
+          <MapIcon sx={{ fontSize: 50, mb: 1 }} />
+          Karte
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/borrow")}
+          sx={{
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            fontSize: "1.1rem",
+            backgroundColor: "#00acc1",
+            color: "#fff",
+            ":hover": { backgroundColor: "#00838f" },
+          }}
+        >
+          <SwapHorizIcon sx={{ fontSize: 50, mb: 1 }} />
+          Ausleihe
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/weather")}
+          sx={{
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            fontSize: "1.1rem",
+            backgroundColor: "#00acc1",
+            color: "#fff",
+            ":hover": { backgroundColor: "#00838f" },
+          }}
+        >
+          <WbSunnyIcon sx={{ fontSize: 50, mb: 1 }} />
+          Wetter
+        </Button>
+      </Stack>
 
       {/* Information Cards Section */}
-      <Grid container spacing={4} sx={{ mt: 4, px: 4 }}>
-        <Grid item xs={12} sm={4}>
-          <Card sx={{ boxShadow: 3, backgroundColor: "#80deea" }}>
-            <Box
-              sx={{
-                height: "200px",
-                backgroundImage: `url(${image1})`,
-                backgroundSize: "cover",
-              }}
-            ></Box>
-            <CardContent>
-              <Typography variant="h5" gutterBottom sx={{ color: "#004d40" }}>
-                Entdecke die Tierwelt
-              </Typography>
-              <Typography variant="body1" sx={{ color: "#004d40" }}>
-                Erlebe die vielfältige Tierwelt und erforsche die Wunder der
-                Natur.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card sx={{ boxShadow: 3, backgroundColor: "#80deea" }}>
-            <Box
-              sx={{
-                height: "200px",
-                backgroundImage: `url(${image2})`,
-                backgroundSize: "cover",
-              }}
-            ></Box>
-            <CardContent>
-              <Typography variant="h5" gutterBottom sx={{ color: "#004d40" }}>
-                Erlebe die Natur
-              </Typography>
-              <Typography variant="body1" sx={{ color: "#004d40" }}>
-                Begleite uns bei der Erhaltung der Schönheit und Vielfalt
-                unseres Planeten.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card sx={{ boxShadow: 3, backgroundColor: "#80deea" }}>
-            <Box
-              sx={{
-                height: "200px",
-                backgroundColor: "#00acc1",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4" sx={{ color: "#fff" }}>
-                Dein Abenteuer erwartet dich!
-              </Typography>
-            </Box>
-            <CardContent>
-              <Typography variant="body1" sx={{ color: "#004d40" }}>
-                Plane deinen Besuch und starte in ein unvergessliches Erlebnis.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      <Stack spacing={4} direction={{ xs: "column", sm: "row" }} justifyContent="center" sx={{ mt: 4, px: 4 }}>
+        <Card sx={{ boxShadow: 3, backgroundColor: "#80deea", maxWidth: 300 }}>
+          <Box
+            sx={{
+              height: "200px",
+              backgroundImage: `url(${image1})`,
+              backgroundSize: "cover",
+            }}
+          ></Box>
+          <CardContent>
+            <Typography variant="h5" gutterBottom sx={{ color: "#004d40" }}>
+              Entdecke die Tierwelt
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#004d40" }}>
+              Erlebe die vielfältige Tierwelt und erforsche die Wunder der Natur.
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 3, backgroundColor: "#80deea", maxWidth: 300 }}>
+          <Box
+            sx={{
+              height: "200px",
+              backgroundImage: `url(${image2})`,
+              backgroundSize: "cover",
+            }}
+          ></Box>
+          <CardContent>
+            <Typography variant="h5" gutterBottom sx={{ color: "#004d40" }}>
+              Erlebe die Natur
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#004d40" }}>
+              Begleite uns bei der Erhaltung der Schönheit und Vielfalt unseres Planeten.
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 3, backgroundColor: "#80deea", maxWidth: 300 }}>
+          <Box
+            sx={{
+              height: "200px",
+              backgroundColor: "#00acc1",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h4" sx={{ color: "#fff" }}>
+              Dein Abenteuer erwartet dich!
+            </Typography>
+          </Box>
+          <CardContent>
+            <Typography variant="body1" sx={{ color: "#004d40" }}>
+              Plane deinen Besuch und starte in ein unvergessliches Erlebnis.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Stack>
 
       {/* Footer Section */}
       <Box
@@ -276,6 +285,8 @@ const Homepage = () => {
         <Typography variant="body1">Zoostrasse 43, Zürich</Typography>
         <Typography variant="body1">Telefonnummer: 098198264</Typography>
         <Typography variant="body1">(Google Maps Link)</Typography>
+        <Divider sx={{ my: 2, backgroundColor: "#e0f7fa" }} />
+        <Typography variant="body2">© 2025 Zoo Zürich. Alle Rechte vorbehalten.</Typography>
       </Box>
     </Box>
   );
