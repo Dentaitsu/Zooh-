@@ -1,102 +1,60 @@
-Zooh App Projekt 
 
-Das Projekt
+# Produkt Backlog 
 
-Die Zooh App ist eine Frontend-Webanwendung für den Besuch eines Zoos. Sie enthält mehrere Seiten, die verschiedene Funktionen wie Kartenanzeige, Wetterinformationen, Ticketbuchung und Ausleihe bieten. Das Projekt wurde mit React und Material UI erstellt.
 
-Anforderungen
+## Geplante Features
 
-Alle geplanten Seiten wurden umgesetzt.
+| Feature                     | Beschreibung                                     | Priorität |
+|-----------------------------|-------------------------------------------------|-----------|
+| Verbesserte Kartenfunktion  | Interaktive Zoo-Karte mit Filteroptionen         | Hoch      |
+| Benachrichtigungssystem      | Push-Benachrichtigungen für Wetterwarnungen      | Mittel    |
+| Mehrsprachigkeit            | Unterstützung für mehrere Sprachen               | Niedrig   |
+| Offline-Modus               | Nutzung der App ohne aktive Internetverbindung   | Niedrig   |
 
-Navigation über Home-Button und Hamburger-Menü.
+---
 
-Dynamische Daten werden über JSON geladen.
+## Offene Bugs
 
-Warenkorb-Funktion mit lokaler Speicherung.
+1. Hamburger-Menü auf der Wetter-Seite reagiert nicht korrekt.
+2. Bilder auf der Karten-Seite sind nicht richtig formatiert.
+3. Tickets im Warenkorb werden nach einem Reload doppelt angezeigt.
 
-Wetterdaten werden über eine API angezeigt.
+---
 
-Seitenübersicht
+## Abgeschlossene Aufgaben
 
-Homepage
+| Aufgabe                      | Beschreibung                                   | Status    |
+|------------------------------|-----------------------------------------------|-----------|
+| Dynamische Ticketoptionen     | Ticketdaten werden aus einer JSON-Datei geladen | Erledigt  |
+| Wetterdaten-Integration       | Aktuelle Wetterdaten werden über die Open Meteo API geladen | Erledigt  |
+| Warenkorb-Funktion            | Nutzer können Tickets zum Warenkorb hinzufügen und entfernen | Erledigt  |
+| Snackbar-Benachrichtigung     | Es wird eine Snackbar angezeigt, wenn ein Ticket hinzugefügt wird | Erledigt  |
 
-Startseite mit Buttons zu den verschiedenen Seiten (Karte, Tickets, Ausleihe, Wetter).
+---
 
-Karten-Seite
+## Nächste Schritte
 
-Zeigt eine interaktive Karte des Zoos.
+1. Fehlerbehebungen auf der Wetter-Seite.
+2. Einführung eines Offline-Modus.
+3. Optimierung der mobilen Ansicht.
 
-Wetterinformationen werden dynamisch angezeigt.
+---
 
-Ausleihe-Seite
+## Dynamische Features
 
-Liste von Gegenständen, die im Zoo ausgeliehen werden können (z. B. Regenschirme).
+- **Ticketoptionen aus JSON**
+- **Wetterdaten von Open Meteo API**
+- **Lokale Speicherung des Warenkorbs**
 
-Gebühren und Rückgabebedingungen werden angezeigt.
+---
 
-Wetter-Seite
+## Sprint-Planung
 
-Zeigt das aktuelle Wetter in Zürich.
+| Sprint       | Geplante Aufgaben                          | Status    |
+|--------------|-------------------------------------------|-----------|
+| Sprint 1     | Grundlegende Seitenstruktur erstellen       | Abgeschlossen |
+| Sprint 2     | Wetterdaten integrieren                    | Abgeschlossen |
+| Sprint 3     | Kartenfunktion erweitern                   | In Bearbeitung |
+| Sprint 4     | Benachrichtigungssystem einführen          | Geplant |
 
-7-Tage-Wetterprognose als Diagramm.
-
-Tickets-Seite
-
-Ticketoptionen wie Einzelticket, Familienticket und Kinder-Ticket.
-
-Tickets können in den Warenkorb gelegt werden.
-
-Warenkorb-Funktion mit der Möglichkeit, Tickets zu entfernen.
-
-Installation
-
-Repository klonen
-
-git clone https://github.com/your username duh/zooh-app.git
-
-Abhängigkeiten installieren
-
-npm install
-
-Projekt starten
-
-npm start
-
-Technologien
-
-React
-
-Material UI
-
-React Router
-
-Chart.js
-
-Open Meteo API
-
-Funktionen
-
-Dynamische Ticketoptionen über JSON.
-
-Wetterdaten werden über die Open Meteo API geladen.
-
-Warenkorb bleibt auch nach einem Reload erhalten.
-
-Testen
-
-Alle Buttons und Links prüfen.
-
-Warenkorb-Funktion testen (Hinzufügen und Entfernen von Tickets).
-
-Responsivität der App auf verschiedenen Geräten prüfen.
-
-Dokumentation
-
-Alle Informationen zum Projekt sind in dieser README enthalten.
-
-Nächste Schritte
-
-Code noch einmal durchgehen und sauber halten.
-
-Projekt abgeben.
-
+Dieses Backlog stellt den aktuellen Entwicklungsstand der Zooh App dar und listet geplante Features sowie offene Aufgaben auf.
